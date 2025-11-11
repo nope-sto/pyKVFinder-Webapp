@@ -25,21 +25,22 @@ A web application for analyzing biomolecular cavities using **pyKVFinder**. User
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/pyKVFinder-webapp.git
+git clone https://github.com/nope-sto/pyKVFinder-Webapp-webapp.git
 cd pyKVFinder-webapp
 ```
 
-2. Create a Python virtual environment and activate it:
+2. Create the Python virtual environment from the yml dependencies:
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate   # On Windows: venv\Scripts\activate
+
+conda env create -f pocket_analysis.yml
+
 ```
 
-3. Install the required packages:
+3. Activate conda environment
 
 ```bash
-pip install -r requirements.txt
+conda activate pocket_analysis.yml
 ```
 
 > **Note:** Make sure `pyKVFinder`, `Flask`, `pandas`, and `Werkzeug` are installed.
@@ -97,7 +98,7 @@ pyKVFinder-webapp/
 │  └─ result.html          # Results page
 ├─ uploads/                # Temporary uploaded files
 ├─ results/                # Generated output files
-├─ requirements.txt        # Python dependencies
+├─ pocket_analysis.yml     # Python dependencies
 └─ README.md               # This file
 ```
 
@@ -118,5 +119,7 @@ If you use this web app in publications or presentations, please acknowledge Dr.
 
 > da Silva Guerra et al. (2021). *pyKVFinder: an efficient and integrable Python package for biomolecular cavity detection and characterization in data science*. [Nature Methods](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04519-4).  
 
-
+### ✨ Author
+**Peter Stockinger**  
+🌐 LinkedIn: https://www.linkedin.com/in/peter-stockinger/
 
