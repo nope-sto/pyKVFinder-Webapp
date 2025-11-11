@@ -2,6 +2,8 @@
 
 A web application for analyzing biomolecular cavities using **pyKVFinder**. Users can upload PDB files, set analysis parameters, and download detailed results including processed PDBs, TOML data, PDFs, and Excel spreadsheets.
 
+<img width="1448" height="401" alt="image" src="https://github.com/user-attachments/assets/676fa101-f716-4e9a-bdb6-5d645d9eb8bf" />
+
 ---
 
 ## Features
