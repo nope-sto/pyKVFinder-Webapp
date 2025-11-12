@@ -1,55 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>pyKVFinder Webapp</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyKVFinder Webapp</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', 'Helvetica', 'Arial', sans-serif;
+    }
+    .btn-primary {
+      background: linear-gradient(to bottom, #2C7A7B, #2A6A6B);
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+    .btn-primary:hover {
+      background: #234E52;
+      transform: translateY(-1px);
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #5A67D8;
+      box-shadow: 0 0 0 2px rgba(90, 103, 216, 0.5);
+    }
+    .container-shadow {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+  </style>
 </head>
-<body>
-    <div class="container mt-5">
-        <h1 class="mb-4">pyKVFinder Pocket Analysis</h1>
-        <h4 class="mb-4">Units are in Angstroms</h4>
-        {% if error %}
-        <div class="alert alert-danger">{{ error }}</div>
-        {% endif %}
-        
-        <form action="/" method="post" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="file" class="form-label">Upload PDB File</label>
-                <input class="form-control" type="file" id="file" name="file" accept=".pdb" required>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="probe_out" class="form-label">Probe Out (default: 8.0)</label>
-                    <input type="number" step="0.1" class="form-control" id="probe_out" name="probe_out" value="8.0">
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="volume_cutoff" class="form-label">Volume Cutoff (default: 50.0)</label>
-                    <input type="number" step="0.1" class="form-control" id="volume_cutoff" name="volume_cutoff" value="50.0">
-                </div>
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Analyze PDB</button>
-        </form>
-    </div>
+<body class="min-h-screen flex flex-col bg-gray-50 text-gray-800">
+  <main class="flex-grow p-6 md:p-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl p-6 md:p-8 space-y-6 container-shadow">
+      <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800">pyKVFinder Webapp</h1>
+      <h4 class="text-lg text-center text-gray-600">Units are in Angstroms</h4>
 
+      {% if error %}
+      <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+        {{ error }}
+      </div>
+      {% endif %}
+
+      <form action="/" method="post" enctype="multipart/form-data" class="space-y-6">
+        <div>
+          <label for="file" class="block text-lg font-semibold mb-2 text-gray-800">Upload PDB File <span class="text-red-600">(Required)</span></label>
+          <input type="file" id="file" name="file" accept=".pdb" required
+                 class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="probe_out" class="block text-lg font-semibold mb-2 text-gray-800">Probe Out (default: 8.0)</label>
+            <input type="number" step="0.1" id="probe_out" name="probe_out" value="8.0"
+                   class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label for="volume_cutoff" class="block text-lg font-semibold mb-2 text-gray-800">Volume Cutoff (default: 50.0)</label>
+            <input type="number" step="0.1" id="volume_cutoff" name="volume_cutoff" value="50.0"
+                   class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full btn-primary text-white py-3 rounded-lg text-lg font-semibold">
+          Analyze PDB
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Fixed Footer - Matches Boltz Style -->
   <footer class="flex-shrink-0 w-full text-center text-sm text-gray-600 bg-gray-100 border-t border-gray-200 py-3">
-    <p class="mb-1">
-      If you use data or visualizations generated with this tool for publications, posters, or presentations,  
-      please cite the following publications and acknowledge Dr. Peter Stockinger for providing access to this web app.
-    </p>
-    <p class="mb-0.5 text-sm">
-      da Silva Guerra et al. (2021). <em>pyKVFinder: an efficient and integrable Python package for biomolecular cavity detection and characterization in data science</em>. 
-      <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04519-4" target="_blank" class="text-indigo-500 hover:text-indigo-600 underline">Nature Methods</a>.
-    </p>
-    <div class="flex justify-center items-center space-x-2 text-gray-500">
-      <span>© Dr. Peter Stockinger</span>
-      <a href="https://www.linkedin.com/in/peter-stockinger/" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4 inline-block" viewBox="0 0 24 24">
-          <path d="M20.447 20.452h-3.554v-5.569c0-1.327-.025-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.94v5.666H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.852 3.369-1.852 3.6 0 4.266 2.37 4.266 5.451v6.292zM5.337 7.433c-1.144 0-2.07-.928-2.07-2.07 0-1.145.926-2.07 2.07-2.07s2.07.925 2.07 2.07c0 1.142-.926 2.07-2.07 2.07zM6.814 20.452H3.861V9h2.953v11.452zM22.225 0H1.771C.792 0 0 .771 0 1.729v20.542C0 23.229.792 24 1.771 24h20.451C23.207 24 24 23.229 24 22.271V1.729C24 .771 23.207 0 22.225 0z"/>
-        </svg>
-      </a>
+    <div class="max-w-4xl mx-auto px-4">
+      <p class="mb-1">
+        If you use data or visualizations generated with this tool for publications, posters, or presentations,
+        please cite the following publications and acknowledge Dr. Peter Stockinger for providing access to this web app.
+      </p>
+      <p class="mb-0.5 text-sm">
+        da Silva Guerra et al. (2021). <em>pyKVFinder: an efficient and integrable Python package for biomolecular cavity detection and characterization in data science</em>.
+        <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04519-4" target="_blank" class="text-indigo-500 hover:text-indigo-600 underline">BMC Bioinformatics</a>.
+      </p>
+      <div class="flex justify-center items-center space-x-2 text-gray-500 mt-2">
+        <span>© Dr. Peter Stockinger</span>
+        <a href="https://www.linkedin.com/in/peter-stockinger/" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4 inline-block" viewBox="0 0 24 24">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.327-.025-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.94v5.666H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.852 3.369-1.852 3.6 0 4.266 2.37 4.266 5.451v6.292zM5.337 7.433c-1.144 0-2.07-.928-2.07-2.07 0-1.145.926-2.07 2.07-2.07s2.07.925 2.07 2.07c0 1.142-.926 2.07-2.07 2.07zM6.814 20.452H3.861V9h2.953v11.452zM22.225 0H1.771C.792 0 0 .771 0 1.729v20.542C0 23.229.792 24 1.771 24h20.451C23.207 24 24 23.229 24 22.271V1.729C24 .771 23.207 0 22.225 0z"/>
+          </svg>
+        </a>
+      </div>
     </div>
   </footer>
 </body>
